@@ -1,0 +1,44 @@
+
+<div>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <table>
+      <tr>
+        <td><label>Email:</label></td>
+        <td><input type="email" formControlName="email" /></td>
+        <td class="validation-text"> 
+          <div *ngIf="registrationForm.get('email')?.errors?.['required']">Email is required.</div>
+          <div *ngIf="registrationForm.get('email')?.errors?.['email']">Invalid email format.</div>
+        </td>
+      </tr>
+      <tr>
+        <td><label>Phone Number:</label></td>
+        <td><input type="tel" formControlName="phone" /></td>
+        <td class="validation-text"> 
+          <div *ngIf="registrationForm.get('phone')?.errors?.['required']">Phone number is required.</div>
+          <div *ngIf="registrationForm.get('phone')?.errors?.['pattern']">Invalid phone number format (10 digits required).</div>
+        </td>
+      </tr>
+      <tr>
+        <td><label>Password:</label></td>
+        <td> <input type="text" formControlName="password" /></td>
+        <td class="validation-text">
+          <div *ngIf="registrationForm.get('password')?.invalid">
+            <div *ngIf="registrationForm.get('password')?.hasError('required')">Password is required.</div>
+            <div *ngIf="registrationForm.get('password')?.hasError('minlength')">Password must be at least 6 characters long.</div>
+            <div *ngIf="registrationForm.hasError('lowerCaseMissing')">
+              Password must contain at least one lowercase character.
+            </div>
+            <div *ngIf="registrationForm.hasError('upperCaseMissing')">
+              Password must contain at least one uppercase character.
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><button type="submit" [disabled]="registrationForm.invalid">Submit</button></td>
+        <td></td>
+      </tr>
+    </table>
+  </form>
+</div>
